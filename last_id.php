@@ -6,10 +6,10 @@ header("Access-Control-Allow-Headers: *");
 
 include_once("conexao.php");
 
-//O id do usuário para eu poder selecionar o id ultimo produto inserido por ele e atualizar no banco de dados.
+//O id do usuário para eu poder selecionar o id ultimo projeto inserido por ele e atualizar no banco de dados.
 $users_id = filter_input(INPUT_GET, "users_id");
 
-//Query para selecionar o id do produto do usuário >-------------------------------------------
+//Query para selecionar o id do prjeto do usuário >-------------------------------------------
 $query_products = "SELECT id FROM products WHERE users_id=$users_id ORDER BY id DESC LIMIT 1";
 $result_products = $conn->prepare($query_products);
 $result_products->execute();
