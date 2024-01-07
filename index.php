@@ -6,12 +6,15 @@ header("Access-Control-Allow-Headers: *");
 
 include_once "conexao.php";
 
+//O id do usuário que vai ser usado para retornar unicamente os projetos daquela conta.
 $users_id = $_POST['users_id'];
 
+//Query para realizar o SELECT >-----------------------------------------------------
 $query_products = "SELECT * FROM products WHERE users_id=:users_id ORDER BY id DESC";
 $result_products = $conn->prepare($query_products);
 $result_products->bindParam(":users_id", $users_id, PDO::PARAM_INT);
 $result_products->execute();
+//<-----------------------------------------------------------------------------------
 
 if ($result_products) {
     if (($result_products->rowCount() != 0)) {

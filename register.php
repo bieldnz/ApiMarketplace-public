@@ -6,12 +6,16 @@ header("Access-Control-Allow-Headers: *");
 
 include_once "conexao.php";
 
+//dados da nova conta criada que vão ser inseridas no banco de dados >-----------
 $login = $_POST['login'];
 $password = $_POST['password'];
+//------------------------------------------------------------------------------<
 
+//Query para inserir os dados do novo usuário >----------------------------------
 $query = "INSERT INTO users (login, password) VALUES ('$login', '$password')";
 $query_result = $conn->prepare($query);
 $query_result->execute();
+//------------------------------------------------------------------------------<
 
 if($query_result){
     $responce = [

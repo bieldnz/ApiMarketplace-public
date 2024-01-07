@@ -7,8 +7,10 @@ header("Access-Control-Allow-Headers: *");
 
 include_once "conexao.php";
 
+//O ID sendo recebido pelo link
 $id = filter_input(INPUT_GET, "id");
 
+//Os dados enviados para realizar a edição do projeto no banco de dados ------------->
 $nome = $_POST["name"];
 $descricao = $_POST["descricao"];
 $preco = $_POST["preco"];
@@ -16,9 +18,12 @@ $categorias =$_POST["categorias"];
 $foto = $_POST["foto"];
 $public_id_foto = $_POST['public_id_foto'];
 $old_public_id_foto = $_POST['old_public_id_foto'];
+//------------------------------------------------------------------------------------<
 
+//Destruição da imagem antiga, a imagem atualizada já foi inserida no cloudinary pelo front-end
 $cloudinary->destroy($old_public_id_foto);
 
+//Query para realizar o UPDATE do projeto <--------------------------------------
 $query = "UPDATE products SET name=:name, descricao=:descricao, preco=:preco, foto=:foto, categorias=:categorias, public_id_foto=:public_id_foto WHERE id=:id";
 $query_product = $conn->prepare($query);
 $query_product->bindParam(":id", $id, PDO::PARAM_INT);
@@ -28,8 +33,8 @@ $query_product->bindParam(":preco", $preco, PDO::PARAM_STR);
 $query_product->bindParam(":categorias", $categorias, PDO::PARAM_STR);
 $query_product->bindParam(":foto", $foto);
 $query_product->bindParam(":public_id_foto",$public_id_foto, PDO::PARAM_STR);
-
 $query_product->execute();
+//------------------------------------------------------------------------------<
 
 if ($query_product) {
     $response = [

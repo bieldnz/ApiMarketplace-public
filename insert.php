@@ -7,6 +7,7 @@ header("Access-Control-Allow-Methods: *");
 
 include 'conexao.php';
 
+//Os dados enviados para serem inserido no banco de dados, criando um novo projeto >----------------
 $foto = $_POST["foto"];
 $name = $_POST['name'];
 $descricao = $_POST['descricao'];
@@ -14,7 +15,9 @@ $categorias = $_POST['categorias'];
 $preco = $_POST['preco'];
 $users_id = (int)$_POST['users_id'];
 $public_id = $_POST['public_id'];
+//----------------------------------------------------------------------------------------------------<
 
+//Query para realizar o insert no banco de dados >-----------------------------------------------
 $result = "INSERT INTO products (name, preco, descricao, foto, categorias, users_id, public_id_foto) VALUES (:name, :preco, :descricao, :foto, :categorias, :users_id, :public_id_foto)";
 $insert_products = $conn->prepare($result);
 $insert_products->bindParam(":name", $name, PDO::PARAM_STR);
@@ -26,6 +29,7 @@ $insert_products->bindParam(":users_id", $users_id, PDO::PARAM_INT);
 $insert_products->bindParam(":public_id_foto", $public_id, PDO::PARAM_STR);
 
 $insert_products->execute();
+//----------------------------------------------------------------------------------------------<
 
 if ($insert_products) {
     $response = [

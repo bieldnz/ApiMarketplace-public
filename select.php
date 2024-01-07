@@ -1,4 +1,6 @@
 <?php
+
+// Restante da query que vai ser utilizada tanto no select_user quanto no select_verify
 $query_prepare = $conn->prepare($query);
 $query_prepare->bindParam(":login", $login);
 $query_prepare->bindParam(":password", $password);
